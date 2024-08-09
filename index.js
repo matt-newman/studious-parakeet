@@ -1,12 +1,3 @@
-const data = [
-    `WLWWW`,
-    `WLWWW`,
-    `WWWLW`,
-    `WWLLW`,
-    `LWWLL`,
-    `LLWWW`,
-];
-
 export const getNumberOfIslands = ( grid ) => {
     let totalIslands = 0;
 
@@ -25,6 +16,8 @@ export const getNumberOfIslands = ( grid ) => {
         });
     });
 
+    console.log( { landCoords } );
+
     landCoords.forEach(coord => {
         // if x +- 1 / y +- 1 is in land coords then is connected and only 1 island
         const [x,y] = coord.split(',');
@@ -36,13 +29,37 @@ export const getNumberOfIslands = ( grid ) => {
 
         const connectedAbove = landCoords.includes(up);
         const connectedToLeft = landCoords.includes(left);
-        const connectedToRight = landCoords.includes(right);
-        const data = { x, y, up, left, right };
+
+        const data = { y, x, up, left, right };
+        
+        // TODO: if connected to right are connected above, dont increment
+        let isExistingIsland = false;
+        let nextX = (x * 1) + 1;
+        let xMax = coords[0].length;
+        let aboveNewX;
+        let rightOfNewX = right;
+
+        // console.log( { isExistingIsland, connectedAbove, connectedToLeft, data, xMax, nextX } );
+
+        while( 
+            (!connectedAbove && !connectedToLeft)
+                && landCoords.includes( rightOfNewX )
+                && nextX < xMax && !isExistingIsland ) {
+            rightOfNewX = `${nextX},${y}`;
+            aboveNewX = `${nextX},${y-1}`;
+
+            // console.log( { nextX, rightOfNewX, aboveNewX } );
+
+            if ( landCoords.includes( rightOfNewX ) && landCoords.includes( aboveNewX ) ) {
+                isExistingIsland = true;
+            }
+            nextX++;
+        }
 
         // console.log( { connectedAbove, connectedToLeft, connectedToRight, data } );
 
-        if ( !connectedAbove && !connectedToLeft && !connectedToRight ) {
-            console.log( { landCoords, connectedAbove, connectedToLeft, connectedToRight, data } );
+        if ( !isExistingIsland && !connectedAbove && !connectedToLeft ) {
+            // console.log( 'ONE MORE ISLAND!', { isExistingIsland, connectedAbove, connectedToLeft, data } );
             totalIslands++;
         }
 

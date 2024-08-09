@@ -9,6 +9,15 @@ const firstTestGrid = [
     `LLWWW`,
 ];
 
+const secondGrid = [
+    'WLWWW',
+    'WLWWL',
+    'WWWLW',
+    'WWWWW',
+    'LLWWW',
+    'LLWWW',
+]
+
 const noIslands = [
     'WWWWWW'
 ]
@@ -35,32 +44,37 @@ const joinedIsland = [
 
 describe('counting islands', () => {
     it('should return zero when there is no islands', () => {
-        const result = getNumberOfIslands( noIslands );
-        expect( result ).toBe( 0 );
+        const result = getNumberOfIslands(noIslands);
+        expect(result).toBe(0);
     })
 
     it('should return one when there is 1 island - vertical', () => {
-        const result = getNumberOfIslands( oneIslandVertical );
-        expect( result ).toBe( 1 );
+        const result = getNumberOfIslands(oneIslandVertical);
+        expect(result).toBe(1);
     })
 
     it('should return one when there is 1 island - horizontal', () => {
-        const result = getNumberOfIslands( oneIslandHoriz );
-        expect( result ).toBe( 1 );
+        const result = getNumberOfIslands(oneIslandHoriz);
+        expect(result).toBe(1);
     })
 
     it('should return one when there is 1 island - second', () => {
-        const result = getNumberOfIslands( oneIsland );
-        expect( result ).toBe( 1 );
+        const result = getNumberOfIslands(oneIsland);
+        expect(result).toBe(1);
     })
 
     it('should return one when there is 1 island - joinedIsland', () => {
-        const result = getNumberOfIslands( joinedIsland );
-        expect( result ).toBe( 1 );
+        const result = getNumberOfIslands(joinedIsland);
+        expect(result).toBe(1);
     })
 
-    it('should return the number of islands', () => {
-        const result = getNumberOfIslands( firstTestGrid );
-        expect( result ).toBe( 3);
+    it('should return the number of islands - firstTestGrid', () => {
+        const result = getNumberOfIslands(firstTestGrid);
+        expect(result).toBe(3);
+    })
+
+    it('should return the number of islands - secondGrid', () => {
+        const result = getNumberOfIslands(secondGrid);
+        expect(result).toBe(4);
     })
 })
